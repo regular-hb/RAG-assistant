@@ -1,0 +1,1 @@
+"""Text embedding interfaces for paper passages and research questions."""

@@ -1,0 +1,1 @@
+"""Paper loading, text extraction, and chunk preparation."""

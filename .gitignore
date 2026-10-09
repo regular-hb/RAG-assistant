@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+myenv/
+venv/
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+
+# Test, type-checker, and notebook artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Streamlit local state
+.streamlit/secrets.toml
+
+# Research corpora and generated retrieval artifacts
+*.pdf
+/backend/data/papers/processed/*
+!/backend/data/papers/processed/.gitkeep
+/backend/data/papers/indexes/*
+!/backend/data/papers/indexes/.gitkeep

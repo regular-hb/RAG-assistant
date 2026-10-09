@@ -1,0 +1,5 @@
+# Frontend runtime
+streamlit==1.65.0
+
+# Frontend tests
+pytest==9.1.1
