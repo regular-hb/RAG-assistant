@@ -1,25 +1,16 @@
-"""Student guide: coordinate query embedding and passage search."""
+"""Simple notes for searching the best passages for a question."""
 
-# This module is the boundary between a user's question and the vector store.
-# It should return evidence records, not a generated answer. Keeping that split
-# lets the group test retrieval quality without involving a language model.
+# This module turns a user question into a vector search.
+# It should return evidence, not an answer.
 #
-# Suggested operation: retrieve(question, top_k=..., filters=None) -> list of
-# Evidence records. It should: validate the question/settings, embed the query
-# using embeddings/embedder.py, call vector_store.search, then return records
-# ordered best-first with source/page/text/chunk_id/score intact.
+# Steps:
+# - check the question and settings
+# - turn the question into an embedding
+# - ask the vector store for similar chunks
+# - return the best matches in order
 #
-# Start with configurable top_k and no score threshold. Similarity values are
-# model/store dependent, so choose a threshold only after inspecting results on
-# sample research questions. If adding deduplication, keep the best result and
-# do not remove distinct passages just because their wording is similar.
+# Keep the score and metadata with each result.
+# If no passages are found, return an empty result instead of making up answers.
 #
-# A high similarity score is not proof that a passage supports the question.
-# Let the answer stage inspect the text, and preserve scores so evaluation can
-# explain why a passage was selected. Return an empty list when nothing is
-# indexed or no result is available; do not fabricate fallback evidence.
-#
-# Tests to write: fake embedder + fake store, confirm the question vector is
-# passed through, top_k/filters are forwarded, ranking and metadata survive,
-# and empty results remain empty. Stretch goal: compare semantic retrieval with
-# a keyword or hybrid baseline on a small, labeled query set.
+# Good tests include: fake embedder + fake store, ranked results, empty results,
+# and checks that filters and top_k are passed through correctly.

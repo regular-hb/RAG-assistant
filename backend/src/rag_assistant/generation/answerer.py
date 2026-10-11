@@ -1,30 +1,21 @@
-"""Student guide: produce a cautious synthesis from retrieved evidence."""
+"""Simple notes for writing careful answers from retrieved evidence."""
 
-# Input should be a research question plus the Evidence records from retriever.py.
-# This stage must not query the corpus itself. That separation makes it possible
-# to inspect retrieval independently and prevents hidden, uncited evidence from
-# entering a response.
+# This stage gets a question and the evidence that was already found.
+# It should not search the full paper collection again.
 #
-# Suggested result: an Answer record containing answer_text, citations, and
-# optionally a short limitation/abstention reason. Each citation should resolve
-# to a supplied chunk_id and carry source/page for display. Agree on this result
-# shape with the frontend before implementing provider-specific code.
+# The answer should include:
+# - the answer text
+# - the citation IDs
+# - page or source information when needed
 #
-# Prompt design hints:
-# - Give each passage a short stable ID, paper/title, page, and quoted text.
-
-
-# - Instruct the model to use only supplied passages, cite IDs for factual
-#   claims, distinguish evidence from interpretation, and say when evidence is
-#   insufficient or conflicting.
-# - Keep context within the selected model's token limit. Prefer fewer relevant
-#   passages to silently truncating citations or sending an entire paper.
+# Rules:
+# - only use the supplied passages
+# - do not invent references
+# - say when the evidence is weak or missing
+# - stop early if there is no evidence to use
 #
-# Parse/validate the model response before returning it. Reject or flag citation
-# IDs that were not supplied; never invent bibliographic details. Handle zero
-# retrieved passages without calling the model. Keep API credentials in local
-# environment configuration, never source control or logs.
+# Keep provider settings separate from the app logic.
+# Validate every model response before returning it.
 #
-# Tests to write: mock the model client, inspect the prompt inputs, test a valid
-# cited answer, an unknown citation ID, malformed provider output, no evidence,
-# and a provider error. Keep live-model tests separate from unit tests.
+# Good tests include: normal answer generation, bad citation IDs, no evidence,
+# malformed model output, and provider errors.
